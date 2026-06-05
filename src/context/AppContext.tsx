@@ -22,9 +22,48 @@ const mockModules = [
 ];
 
 const mockMemorandums = [
-  { id: 'MEM-001', docenteId: 'DOC-001', docenteNombre: 'Ing. Carlos Mendoza', tipo: 'Técnica', programa: 'Técnico General en Computación', fechaEmision: getToday(-30), fechaInicio: getToday(-28), fechaFin: getToday(45), estado: 'ACTIVO' },
-  { id: 'MEM-002', docenteId: 'DOC-002', docenteNombre: 'MSc. Elena Rostova', tipo: 'Curso', programa: 'Curso de Excel Avanzado', fechaEmision: getToday(-20), fechaInicio: getToday(-18), fechaFin: getToday(20), estado: 'ACTIVO' },
-  { id: 'MEM-003', docenteId: 'DOC-003', docenteNombre: 'Lic. Roberto Quirós', tipo: 'Técnica', programa: 'Técnico en Desarrollo Web', fechaEmision: getToday(-15), fechaInicio: getToday(-14), fechaFin: getToday(55), estado: 'ACTIVO' },
+  {
+    id: 'MEM-001', docenteId: 'DOC-001', docenteNombre: 'Ing. Carlos Mendoza',
+    tipo: 'Técnica', programa: 'Técnico General en Computación',
+    fechaEmision: getToday(-30), fechaInicio: getToday(-28), fechaFin: getToday(45),
+    estado: 'ACTIVO',
+    modulos: [{
+      codModule: 'MOD-001', nombre: 'Sistemas Operativos', horasTotales: 120,
+      unidades: [
+        { id: 'UD-SO-01', nombre: 'Introducción a los SO y Arquitectura', fechaInicio: getToday(-28), fechaFin: getToday(-10), horasAsignadas: 30, estado: 'FINALIZADA', codModule: 'MOD-001', ponderacion: 25 },
+        { id: 'UD-SO-02', nombre: 'Gestión y Planificación de Procesos', fechaInicio: getToday(-10), fechaFin: getToday(10), horasAsignadas: 50, estado: 'EN_PROGRESO', codModule: 'MOD-001', ponderacion: 45 },
+        { id: 'UD-SO-03', nombre: 'Gestión de Memoria y Memoria Virtual', fechaInicio: getToday(10), fechaFin: getToday(45), horasAsignadas: 40, estado: 'PENDIENTE', codModule: 'MOD-001', ponderacion: 30 },
+      ],
+    }],
+  },
+  {
+    id: 'MEM-002', docenteId: 'DOC-002', docenteNombre: 'MSc. Elena Rostova',
+    tipo: 'Curso', programa: 'Curso de Excel Avanzado',
+    fechaEmision: getToday(-20), fechaInicio: getToday(-18), fechaFin: getToday(20),
+    estado: 'ACTIVO',
+    modulos: [{
+      codModule: 'MOD-003', nombre: 'Excel Avanzado: Fórmulas y Macros', horasTotales: 60,
+      unidades: [
+        { id: 'UD-EX-01', nombre: 'Fórmulas Avanzadas y Funciones Anidadas', fechaInicio: getToday(-18), fechaFin: getToday(-5), horasAsignadas: 20, estado: 'FINALIZADA', codModule: 'MOD-003', ponderacion: 33 },
+        { id: 'UD-EX-02', nombre: 'Tablas Dinámicas y Gráficos', fechaInicio: getToday(-5), fechaFin: getToday(5), horasAsignadas: 20, estado: 'EN_PROGRESO', codModule: 'MOD-003', ponderacion: 33 },
+        { id: 'UD-EX-03', nombre: 'Macros y Automatización con VBA', fechaInicio: getToday(5), fechaFin: getToday(20), horasAsignadas: 20, estado: 'PENDIENTE', codModule: 'MOD-003', ponderacion: 34 },
+      ],
+    }],
+  },
+  {
+    id: 'MEM-003', docenteId: 'DOC-003', docenteNombre: 'Lic. Roberto Quirós',
+    tipo: 'Técnica', programa: 'Técnico en Desarrollo Web',
+    fechaEmision: getToday(-15), fechaInicio: getToday(-14), fechaFin: getToday(55),
+    estado: 'ACTIVO',
+    modulos: [{
+      codModule: 'MOD-004', nombre: 'Desarrollo Frontend con React', horasTotales: 80,
+      unidades: [
+        { id: 'UD-DW-01', nombre: 'Fundamentos de HTML, CSS y JavaScript', fechaInicio: getToday(-14), fechaFin: getToday(-2), horasAsignadas: 25, estado: 'FINALIZADA', codModule: 'MOD-004', ponderacion: 30 },
+        { id: 'UD-DW-02', nombre: 'Introducción a React y Componentes', fechaInicio: getToday(-2), fechaFin: getToday(3), horasAsignadas: 30, estado: 'EN_PROGRESO', codModule: 'MOD-004', ponderacion: 40 },
+        { id: 'UD-DW-03', nombre: 'Routing, Estado y Despliegue', fechaInicio: getToday(3), fechaFin: getToday(55), horasAsignadas: 25, estado: 'PENDIENTE', codModule: 'MOD-004', ponderacion: 30 },
+      ],
+    }],
+  },
 ];
 
 const mockDosificaciones = [
