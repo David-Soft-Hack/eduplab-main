@@ -583,17 +583,17 @@ const Programas: React.FC = () => {
                         <div className="flex items-center gap-1">
                           <button 
                             onClick={() => handleOpenEdit(prog)}
-                            className="w-7 h-7 flex items-center justify-center rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-academic-600 border border-slate-150/50 transition-all shadow-sm"
+                            className="w-9 h-9 flex items-center justify-center rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-academic-600 border border-slate-150/50 transition-all shadow-sm"
                             title="Editar"
                           >
-                            <Edit3 size={12} />
+                            <Edit3 size={14} />
                           </button>
                           <button 
                             onClick={(e) => handleDelete(prog, e)}
-                            className="w-7 h-7 flex items-center justify-center rounded-lg bg-error-container hover:bg-rose-100/85 text-error hover:text-rose-650 border border-error-container/40 transition-all shadow-sm"
+                            className="w-9 h-9 flex items-center justify-center rounded-lg bg-error-container hover:bg-rose-100/85 text-error hover:text-rose-650 border border-error-container/40 transition-all shadow-sm"
                             title="Eliminar"
                           >
-                            <Trash2 size={12} />
+                            <Trash2 size={14} />
                           </button>
                         </div>
                       </div>
@@ -1106,7 +1106,7 @@ const Programas: React.FC = () => {
       </AnimatePresence>
 
       {/* FLOAT SYSTEM TOASTS (Positioned above footer elements so it works nicely with MobileNav overlays) */}
-      <div className="fixed bottom-18 sm:bottom-6 right-4 sm:right-6 z-55 flex flex-col gap-2 max-w-xs pointer-events-none">
+      <div className="fixed bottom-24 sm:bottom-6 right-4 sm:right-6 z-55 flex flex-col gap-2 max-w-xs pointer-events-none">
         <AnimatePresence>
           {toasts.map(t => (
             <motion.div

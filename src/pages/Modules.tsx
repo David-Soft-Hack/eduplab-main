@@ -447,14 +447,14 @@ const Modules: React.FC = () => {
                   <div className="flex items-center gap-1 shrink-0">
                     <button
                       onClick={() => handleOpenEditModal(module)}
-                      className="p-1.5 text-on-surface-variant hover:text-academic-600 hover:bg-surface-container-low border border-transparent hover:border-outline-variant rounded-xl transition-all"
+                      className="p-2.5 text-on-surface-variant hover:text-academic-600 hover:bg-surface-container-low border border-transparent hover:border-outline-variant rounded-xl transition-all"
                       title="Editar Módulo"
                     >
                       <Edit2 size={14} />
                     </button>
                     <button
                       onClick={() => handleOpenDeleteModal(module)}
-                      className="p-1.5 text-on-surface-variant hover:text-error hover:bg-error-container border border-transparent hover:border-error-container rounded-xl transition-all"
+                      className="p-2.5 text-on-surface-variant hover:text-error hover:bg-error-container border border-transparent hover:border-error-container rounded-xl transition-all"
                       title="Eliminar Módulo"
                     >
                       <Trash2 size={14} />
@@ -625,7 +625,7 @@ const Modules: React.FC = () => {
                     setShowFormModal(false);
                     resetForm();
                   }} 
-                  className="p-1.5 hover:bg-surface-container-high rounded-xl transition-colors text-on-surface-variant shrink-0"
+                  className="p-2.5 hover:bg-surface-container-high rounded-xl transition-colors text-on-surface-variant shrink-0"
                 >
                   <X size={18} className="sm:hidden" />
                   <X size={20} className="hidden sm:block" />
@@ -1045,7 +1045,7 @@ const Modules: React.FC = () => {
                                   <button
                                     type="button"
                                     onClick={() => handleEditTempUnit(index)}
-                                    className="p-1.5 sm:p-1.5 text-on-surface-variant hover:text-academic-600 hover:bg-surface-container-low border border-outline-variant hover:border-outline-variant rounded-lg transition-all text-[9px] sm:text-[9px] font-bold flex items-center gap-1 shadow-sm bg-surface"
+                                    className="p-2.5 sm:p-2 text-on-surface-variant hover:text-academic-600 hover:bg-surface-container-low border border-outline-variant hover:border-outline-variant rounded-lg transition-all text-[9px] sm:text-[9px] font-bold flex items-center gap-1 shadow-sm bg-surface"
                                   >
                                     <Edit2 size={11} />
                                     <span>Editar</span>
@@ -1053,7 +1053,7 @@ const Modules: React.FC = () => {
                                   <button
                                     type="button"
                                     onClick={() => handleDeleteTempUnit(index)}
-                                    className="p-1.5 sm:p-1.5 text-on-surface-variant hover:text-error hover:bg-error-container border border-outline-variant hover:border-error-container rounded-lg transition-all text-[9px] sm:text-[9px] font-bold flex items-center gap-1 shadow-sm bg-surface"
+                                    className="p-2.5 sm:p-2 text-on-surface-variant hover:text-error hover:bg-error-container border border-outline-variant hover:border-error-container rounded-lg transition-all text-[9px] sm:text-[9px] font-bold flex items-center gap-1 shadow-sm bg-surface"
                                   >
                                     <Trash2 size={11} />
                                     <span>Borrar</span>
@@ -1151,7 +1151,7 @@ const Modules: React.FC = () => {
       </AnimatePresence>
 
       {/* Floating System Alerts / Toasts */}
-      <div className="fixed bottom-5 right-5 z-[80] flex flex-col gap-2.5 pointer-events-none">
+      <div className="fixed bottom-24 right-5 md:bottom-5 md:right-5 z-[80] flex flex-col gap-2.5 pointer-events-none">
         <AnimatePresence>
           {toasts.map((t) => (
             <motion.div

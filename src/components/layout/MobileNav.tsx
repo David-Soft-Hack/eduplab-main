@@ -1,10 +1,10 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, CalendarCheck, Bell, ClipboardList, FileSpreadsheet, Users } from 'lucide-react';
+import { LayoutDashboard, BookOpen, Award, CalendarCheck, Bell, ClipboardList, FileSpreadsheet, Users } from 'lucide-react';
 import { NavigationBar } from '../ui/NavigationBar';
 import { useAppContext } from '../../context/AppContext';
 import { notificacionesNoLeidas } from '../../lib/notificacionEngine';
 
-const iconSize = 22;
+const iconSize = 20;
 
 export default function MobileNav() {
   const navigate = useNavigate();
@@ -14,6 +14,8 @@ export default function MobileNav() {
 
   const items = [
     { key: '/', label: 'Inicio', icon: <LayoutDashboard size={iconSize} /> },
+    { key: '/modules', label: 'Módulos', icon: <BookOpen size={iconSize} /> },
+    { key: '/programs', label: 'Programas', icon: <Award size={iconSize} /> },
     { key: '/docentes', label: 'Docentes', icon: <Users size={iconSize} /> },
     { key: '/dosificacion', label: 'Dosificar', icon: <CalendarCheck size={iconSize} /> },
     { key: '/alertas', label: 'Alertas', icon: <Bell size={iconSize} />, badge: unreadCount },
@@ -22,7 +24,7 @@ export default function MobileNav() {
   ];
 
   return (
-    <div className="md:hidden">
+    <div className="md:hidden overflow-x-auto scrollbar-none">
       <NavigationBar
         items={items}
         value={location.pathname}

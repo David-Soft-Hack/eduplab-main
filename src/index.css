@@ -141,4 +141,11 @@
     color: var(--color-on-surface) !important;
     border-radius: var(--radius-md) !important;
   }
+
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
 }

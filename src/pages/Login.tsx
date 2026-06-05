@@ -28,7 +28,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="w-full max-w-[370px] bg-surface rounded-[2.25rem] sm:rounded-[2.75rem] shadow-elevation-level5 overflow-hidden relative border-4 border-surface/25 flex flex-col justify-between"
+        className="w-full w-full max-w-[370px] bg-surface rounded-[2.25rem] sm:rounded-[2.75rem] shadow-elevation-level5 overflow-hidden relative border-4 border-surface/25 flex flex-col justify-between"
       >
         <div className="relative bg-gradient-to-b from-primary to-secondary h-[190px] sm:h-[210px] w-full flex flex-col items-center justify-center text-center overflow-hidden shrink-0 z-0 select-none">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.08),transparent)] pointer-events-none" />

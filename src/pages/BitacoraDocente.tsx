@@ -104,10 +104,13 @@ const BitacoraDocente: React.FC = () => {
     if (!existingDosif) return;
     if (existingDosif.turno) setTurno(existingDosif.turno);
     if (existingDosif.configFrecuencia) {
-      setDiasClase(existingDosif.configFrecuencia.diasClase);
-      setHorasSesion(existingDosif.configFrecuencia.horasSesion);
-      setUsarHorasReloj(existingDosif.configFrecuencia.usarHorasReloj);
-      setSelectedFeriados(existingDosif.configFrecuencia.fechasFeriadas);
+      const cfg = typeof existingDosif.configFrecuencia === 'string'
+        ? JSON.parse(existingDosif.configFrecuencia)
+        : existingDosif.configFrecuencia;
+      if (cfg.diasClase) setDiasClase(cfg.diasClase);
+      if (cfg.horasSesion) setHorasSesion(cfg.horasSesion);
+      if (typeof cfg.usarHorasReloj === 'boolean') setUsarHorasReloj(cfg.usarHorasReloj);
+      if (cfg.fechasFeriadas) setSelectedFeriados(cfg.fechasFeriadas);
     }
     if (existingDosif.calendario) setCalendarioGenerado(existingDosif.calendario);
   }, [existingDosif]);
@@ -115,7 +118,7 @@ const BitacoraDocente: React.FC = () => {
   React.useEffect(() => {
     const init: Record<string, number> = {};
     units.forEach(u => {
-      const existingUnit = existingDosif?.unidades.find(eu => eu.id === u.id);
+      const existingUnit = existingDosif?.unidades?.find(eu => eu.id === u.id);
       init[u.id] = existingUnit?.horasAsignadas ?? u.horasAsignadas;
     });
     setEditableHours(init);
@@ -461,7 +464,7 @@ const BitacoraDocente: React.FC = () => {
                         {day.sesiones.map((s, sIdx) => (
                           <div
                             key={sIdx}
-                            className="text-[6px] leading-tight px-1 py-0.5 rounded font-bold bg-primary text-on-primary truncate"
+                            className="text-[8px] leading-tight px-1 py-0.5 rounded font-bold bg-primary text-on-primary truncate"
                             title={`${s.nombreUnidad} (${s.horas}h)`}
                           >
                             {s.horas}h {s.nombreUnidad.length > 8 ? s.nombreUnidad.substring(0, 8) + '…' : s.nombreUnidad}
@@ -473,7 +476,7 @@ const BitacoraDocente: React.FC = () => {
                         <div
                           key={uIdx}
                           className={cn(
-                            "mt-0.5 text-[7px] leading-tight px-1 py-0.5 rounded font-semibold truncate",
+                            "mt-0.5 text-[8px] leading-tight px-1 py-0.5 rounded font-semibold truncate",
                             u.estado === EstadoUnidad.FINALIZADA ? "bg-primary-container text-on-primary-container" :
                             u.estado === EstadoUnidad.EN_PROGRESO ? "bg-tertiary-container text-on-tertiary-container" :
                             "bg-surface-container-high text-on-surface-variant"
@@ -516,7 +519,7 @@ const BitacoraDocente: React.FC = () => {
                           <span className={cn(
                             "w-5 h-5 rounded flex items-center justify-center text-[8px] font-black text-white",
                             u.estado === EstadoUnidad.FINALIZADA ? "bg-primary" :
-                            u.estado === EstadoUnidad.EN_PROGRESO ? "bg-tertiary-container0" : "bg-slate-400"
+                            u.estado === EstadoUnidad.EN_PROGRESO ? "bg-tertiary-container" : "bg-slate-400"
                           )}>
                             {idx + 1}
                           </span>
@@ -630,7 +633,7 @@ const BitacoraDocente: React.FC = () => {
                 className={cn(
                   "px-3 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 shadow-sm",
                   isValid
-                    ? "bg-tertiary-container0 hover:bg-tertiary/90 text-white"
+                    ? "bg-tertiary hover:bg-tertiary/90 text-on-tertiary"
                     : "bg-surface-container-highest text-on-surface-variant cursor-not-allowed"
                 )}
               >

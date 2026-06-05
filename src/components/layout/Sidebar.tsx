@@ -38,11 +38,13 @@ export default function Sidebar() {
   );
 
   return (
-    <NavigationRail
-      items={itemsWithBadges}
-      value={location.pathname}
-      onChange={key => navigate(key)}
-      header={header}
-    />
+    <div className="hidden md:block">
+      <NavigationRail
+        items={itemsWithBadges}
+        value={location.pathname}
+        onChange={key => navigate(key)}
+        header={header}
+      />
+    </div>
   );
 }

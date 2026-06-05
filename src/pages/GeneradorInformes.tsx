@@ -170,7 +170,7 @@ const GeneradorInformes: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-3 mt-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
                     <div className="p-3 bg-primary-container rounded-xl border border-primary-container text-center">
                       <span className="text-label-small text-on-primary-container uppercase block">Finalizadas</span>
                       <span className="text-title-large text-on-primary-container font-display">{item.finalizadas}</span>
