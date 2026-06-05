@@ -1,0 +1,8 @@
+{
+  "name": "EduPlan Docente",
+  "description": "Gestión de planes curriculares, módulos formativos y coordinación de bitácoras académicas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

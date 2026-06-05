@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;750&family=Outfit:wght@450;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  
+  --color-academic-50: #f0f4ff;
+  --color-academic-100: #e0e7ff;
+  --color-academic-200: #c7d2fe;
+  --color-academic-500: #3b82f6;
+  --color-academic-600: #2563eb;
+  --color-academic-700: #1d4ed8;
+  
+  --color-metodologico-50: #0f172a;
+  --color-metodologico-900: #0f172a;
+  --color-teal-400: #2dd4bf;
+  --color-teal-500: #14b8a6;
+  --color-teal-600: #0d9488;
+  --color-teal-700: #0f766e;
+  
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+}
+
+@layer base {
+  body {
+    background-color: #f4f6fa !important; /* Soft premium grey-blue off-white */
+    color: #1e293b !important; /* Elegant dark slate gray standard text */
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+    font-weight: 800;
+    color: #0f172a !important; /* Prominent dark titles */
+  }
+
+  /* Core Modern Light Mode Overrides for structural utility classes */
+  .bg-white {
+    background-color: #ffffff !important; /* Crisp, pure-white cards */
+  }
+
+  /* Any component with bg-white inside hover states */
+  .hover\:bg-white:hover {
+    background-color: #f8fafc !important;
+  }
+
+  .bg-slate-50 {
+    background-color: #f8fafc !important; /* Soft ultra-light grey fill */
+  }
+
+  .bg-slate-100 {
+    background-color: #f1f5f9 !important; /* Soft grey accents */
+  }
+
+  .bg-slate-200 {
+    background-color: #e2e8f0 !important; /* Light divider fill */
+  }
+
+  /* Light-theme inspired global viewports and scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(148, 163, 184, 0.2) !important; /* Soft grey-blue pill */
+    border-radius: 9999px;
+    border: 1px solid transparent;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(148, 163, 184, 0.35) !important;
+  }
+
+  /* Specific custom-scrollbar classes */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(148, 163, 184, 0.2) !important;
+    border-radius: 9999px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(148, 163, 184, 0.35) !important;
+  }
+
+  /* Modern typography light overrides */
+  .text-white {
+    /* Retain white text for true visual contrast when rendering inside dark/colored badges and primary blue buttons */
+  }
+
+  .text-slate-950, .text-slate-900, .text-slate-800, .text-slate-700 {
+    color: #0f172a !important; /* Highly legible charcoal black title text */
+  }
+
+  .text-slate-600, .text-slate-500 {
+    color: #475569 !important; /* Informative medium slate gray */
+  }
+
+  .text-slate-400 {
+    color: #64748b !important; /* Refined secondary slate text */
+  }
+
+  .text-slate-300 {
+    color: #94a3b8 !important; /* Lighter borders or details */
+  }
+
+  /* Input styles matching the capsule look in the mockup */
+  input, select, textarea {
+    color: #0f172a !important;
+    background-color: #ffffff !important;
+  }
+
+  input::placeholder {
+    color: #94a3b8 !important;
+  }
+
+  /* Table dividers and list partitions in light format */
+  .divide-slate-50 > :not([hidden]) ~ :not([hidden]) {
+    border-color: #f1f5f9 !important;
+  }
+  .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
+    border-color: #e2e8f0 !important;
+  }
+
+  /* Borders: ultra-soft light gray shadows and dividers */
+  .border-slate-50, .border-slate-100, .border-slate-200 {
+    border-color: #f1f5f9 !important;
+  }
+  
+  .border-white\/5, .border-white\/10 {
+    border-color: rgba(0, 0, 0, 0.04) !important; /* Crisp transparent border styling */
+  }
+
+  /* Light pastel theme brand elements */
+  .text-academic-600, .text-academic-700 {
+    color: #2563eb !important; /* Premium brand blue */
+  }
+
+  .bg-academic-50 {
+    background-color: #eff6ff !important; /* Softest light blue tint */
+  }
+
+  .bg-academic-100 {
+    background-color: #dbeafe !important;
+  }
+
+  /* Soft and delightful pastel highlight overlays directly from the mockup */
+  .bg-amber-50 {
+    background-color: #fffbeb !important;
+  }
+  .text-amber-600, .text-amber-700 {
+    color: #d97706 !important;
+  }
+  .border-amber-200, .border-amber-100 {
+    border-color: #fde68a !important;
+  }
+
+  .bg-emerald-50 {
+    background-color: #ecfdf5 !important;
+  }
+  .text-emerald-600, .text-emerald-700 {
+    color: #059669 !important;
+  }
+  .border-emerald-200, .border-emerald-100 {
+    border-color: #a7f3d0 !important;
+  }
+
+  .bg-rose-50 {
+    background-color: #fef2f2 !important;
+  }
+  .text-rose-500, .text-rose-600 {
+    color: #dc2626 !important;
+  }
+  .border-rose-200, .border-rose-100 {
+    border-color: #fee2e2 !important;
+  }
+
+  /* Soft Glass Card */
+  .glass-card {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(12px) !important;
+    border-color: rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .nav-item-active {
+    color: #2563eb !important;
+    background-color: #eff6ff !important;
+  }
+
+  /* Hover overrides */
+  .hover\:bg-slate-50:hover {
+    background-color: #f8fafc !important;
+  }
+  .hover\:bg-slate-100:hover {
+    background-color: #f1f5f9 !important;
+  }
+
+  /* Tooltips */
+  .recharts-default-tooltip {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+    color: #0f172a !important;
+    border-radius: 0.75rem !important;
+  }
+}
