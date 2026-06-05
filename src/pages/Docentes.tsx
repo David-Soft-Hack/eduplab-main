@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'motion/react';
-import { Users, Search, Plus, Edit3, Trash2, Mail, Phone, BookOpen, Award, Loader2, Check } from 'lucide-react';
+import { Users, Search, Plus, Edit3, Trash2, Mail, Phone, BookOpen, Award, Check } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -10,7 +10,7 @@ import { Chip } from '../components/ui/Chip';
 import { Badge } from '../components/ui/Badge';
 import { useAppContext } from '../context/AppContext';
 
-const API = import.meta.env.DEV ? 'http://localhost:3002/api' : '/api';
+let nextDocId = Date.now();
 
 interface DocenteForm {
   nombre: string;
@@ -40,15 +40,13 @@ const Docentes: React.FC = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
-  const [saving, setSaving] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     return teachers.filter(t => {
       const matchSearch = !searchTerm ||
         t.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
         t.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        t.carrera.toLowerCase().includes(searchTerm.toLowerCase());
+        t.carrera?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchEstado = filterEstado === 'TODOS' || t.estado === filterEstado;
       return matchSearch && matchEstado;
     });
@@ -57,7 +55,6 @@ const Docentes: React.FC = () => {
   const handleOpenCreate = () => {
     setForm(emptyForm);
     setEditingId(null);
-    setFormError(null);
     setShowForm(true);
   };
 
@@ -71,56 +68,28 @@ const Docentes: React.FC = () => {
       estado: t.estado,
     });
     setEditingId(t.id);
-    setFormError(null);
     setShowForm(true);
   };
 
-  const handleSave = async () => {
-    if (!form.nombre.trim()) { setFormError('El nombre es requerido'); return; }
-    if (!form.email.trim()) { setFormError('El correo es requerido'); return; }
-    if (!EMAIL_REGEX.test(form.email.trim())) { setFormError('Correo electrónico inválido'); return; }
-    setSaving(true);
-    setFormError(null);
-    try {
-      if (editingId) {
-        const res = await fetch(`${API}/docentes/${editingId}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
-        });
-        if (!res.ok) throw new Error('Error al actualizar');
-        const updated = await res.json();
-        setTeachers(prev => prev.map(t => t.id === editingId ? updated : t));
-      } else {
-        const res = await fetch(`${API}/docentes`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
-        });
-        if (!res.ok) throw new Error('Error al crear');
-        const created = await res.json();
-        setTeachers(prev => [created, ...prev]);
-      }
-      setShowForm(false);
-      setForm(emptyForm);
-      setEditingId(null);
-    } catch (err: any) {
-      setFormError(err.message);
-    } finally {
-      setSaving(false);
+  const handleSave = () => {
+    if (!form.nombre.trim()) return;
+    if (!form.email.trim()) return;
+    if (!EMAIL_REGEX.test(form.email.trim())) return;
+    if (editingId) {
+      setTeachers(prev => prev.map(t => t.id === editingId ? { ...t, ...form } : t));
+    } else {
+      const nuevo = { id: `DOC-${nextDocId++}`, ...form, fechaRegistro: new Date().toISOString().split('T')[0] };
+      setTeachers(prev => [nuevo, ...prev]);
     }
+    setShowForm(false);
+    setForm(emptyForm);
+    setEditingId(null);
   };
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     if (!deleteId) return;
-    try {
-      const res = await fetch(`${API}/docentes/${deleteId}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error('Error al eliminar');
-      setTeachers(prev => prev.filter(t => t.id !== deleteId));
-      setDeleteId(null);
-    } catch (err: any) {
-      setFormError(err.message);
-    }
+    setTeachers(prev => prev.filter(t => t.id !== deleteId));
+    setDeleteId(null);
   };
 
   return (
@@ -248,29 +217,24 @@ const Docentes: React.FC = () => {
 
       <Dialog
         open={showForm}
-        onClose={() => { if (!saving) setShowForm(false); }}
+        onClose={() => setShowForm(false)}
         title={editingId ? 'Editar Docente' : 'Nuevo Docente'}
         actions={
           <div className="flex gap-2 w-full">
-            <Button variant="text" onClick={() => setShowForm(false)} disabled={saving} className="flex-1">Cancelar</Button>
+            <Button variant="text" onClick={() => setShowForm(false)} className="flex-1">Cancelar</Button>
             <Button
               variant="filled"
               onClick={handleSave}
-              disabled={saving || !form.nombre.trim() || !form.email.trim()}
-              icon={saving ? <Loader2 size={14} className="animate-spin" /> : <Check size={14} />}
+              disabled={!form.nombre.trim() || !form.email.trim()}
+              icon={<Check size={14} />}
               className="flex-1"
             >
-              {saving ? 'Guardando...' : editingId ? 'Actualizar' : 'Guardar'}
+              {editingId ? 'Actualizar' : 'Guardar'}
             </Button>
           </div>
         }
       >
         <div className="space-y-4">
-          {formError && (
-            <div className="px-3 py-2 rounded-lg bg-error-container text-on-error-container text-body-small">
-              {formError}
-            </div>
-          )}
           <TextField
             variant="outlined"
             label="Nombre completo *"
