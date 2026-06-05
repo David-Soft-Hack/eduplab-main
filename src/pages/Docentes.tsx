@@ -10,7 +10,7 @@ import { Chip } from '../components/ui/Chip';
 import { Badge } from '../components/ui/Badge';
 import { useAppContext } from '../context/AppContext';
 
-const API = 'http://localhost:3002/api';
+const API = import.meta.env.DEV ? 'http://localhost:3002/api' : '/api';
 
 interface DocenteForm {
   nombre: string;

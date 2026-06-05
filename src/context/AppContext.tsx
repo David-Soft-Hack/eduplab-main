@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Notificacion, Memorandum, Dosificacion } from '../types';
 
-const API = 'http://localhost:3002/api';
+const API = import.meta.env.DEV ? 'http://localhost:3002/api' : '/api';
 
 interface AppContextType {
   loading: boolean;

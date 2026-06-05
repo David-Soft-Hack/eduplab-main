@@ -1,5 +1,7 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import './database/db.js';
 import { seedDatabase } from './database/seed.js';
 
@@ -11,11 +13,23 @@ import unidadesRouter from './routes/unidades.js';
 import dosificacionesRouter from './routes/dosificaciones.js';
 import notificacionesRouter from './routes/notificaciones.js';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
-const PORT = process.env.WHATSAPP_PORT || 3002;
+const PORT = process.env.PORT || 3002;
 
-app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000', 'http://127.0.0.1:3001'] }));
+const isDev = process.env.NODE_ENV !== 'production';
+
+if (isDev) {
+  app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000', 'http://127.0.0.1:3001'] }));
+} else {
+  app.use(cors());
+}
+
 app.use(express.json());
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
 
 app.get('/api/seed', (req, res) => {
   const seeded = seedDatabase();
@@ -30,8 +44,17 @@ app.use('/api/unidades', unidadesRouter);
 app.use('/api/dosificaciones', dosificacionesRouter);
 app.use('/api/notificaciones', notificacionesRouter);
 
+if (!isDev) {
+  const distPath = path.join(__dirname, '..', 'dist');
+  app.use(express.static(distPath));
+  app.get('*', (req, res) => {
+    if (req.path.startsWith('/api')) return res.status(404).json({ error: 'Ruta no encontrada' });
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
+
 seedDatabase();
 
 app.listen(PORT, () => {
-  console.log(`🚀 API corriendo en http://localhost:${PORT}`);
+  console.log(`🚀 API corriendo en http://localhost:${PORT} [${isDev ? 'development' : 'production'}]`);
 });
